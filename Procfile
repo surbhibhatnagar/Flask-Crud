@@ -1,2 +1,2 @@
-web: gunicorn py_mrp.wsgi --log-file -
+web: gunicorn app:app --log-file -
 
