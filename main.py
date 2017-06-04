@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, jsonify, url_for, \
     flash
-
+from os import environ
 app = Flask(__name__)
 from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
