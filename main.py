@@ -221,4 +221,5 @@ def recentItems():
 if __name__ == '__main__':
     app.secret_key = 'test_secret_key'
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=False, port=environ.get("PORT", 5000), processes=2)
+    #app.run(host='0.0.0.0', port=5000)
