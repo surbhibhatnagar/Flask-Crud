@@ -1,0 +1,53 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+           <h4>Recent Items</h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 col-md-offset-1 padding-top">
+			  <div class="col-md-6 padding-none">
+            {% for item in items %}
+                <ul>
+                    <li>
+                    <div class="row">
+                        <div class="col-md-6 item-list">
+                             <label>Name:</label>
+                            <p>{{ item.name }}
+                            </p>
+                             <label>Description:</label>
+                              <p>{{ item.description }}
+                            </p>
+                             <p>
+                                {{ getCategoryName(item.category_id) }}
+                            </p>
+                            <a href="{{ url_for('editItem',item_id = item.id,
+                             category_id = item.category_id
+                                    ) }}">
+                                <button class="btn btn-default" id="edit-item">
+					<span class="glyphicon glyphicon-edit"
+                          aria-hidden="true"></span>Edit item
+                                </button>
+                            </a>
+                            <a href="{{ url_for('deleteItem',item_id = item
+                            .id, category_id = item.category_id) }}">
+                                <button class="btn btn-default"
+                                        id="delete-item">
+					<span class="glyphicon glyphicon-trash"
+                          aria-hidden="true"></span>Delete item
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    </li>
+                </ul>
+            {% endfor %}
+        </div>
+		</div>
+	</div>
+{% endblock %}

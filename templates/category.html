@@ -1,0 +1,110 @@
+{% extends "main.html" %}
+{% block content %}
+    {% include "header.html" %}
+    <div class="row top-menu">
+        <div class="col-md-10"></div>
+        <div class="col-md-2 text-right">
+        </div>
+    </div>
+    <div class="row divider blue">
+        <div class="col-md-12"></div>
+    </div>
+    <div class="row banner main">
+        <div class="col-md-6 padding-none">
+            <h1>Categories</h1>
+        </div>
+        <div class="col-md-6 padding-none">
+            <h1>Recent Items</h1>
+        </div>
+    </div>
+
+    <div class='flash'>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+
+                <ul>
+                    {% for message in messages %}
+                        <li><strong> {{ message }} </strong></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+    </div>
+
+    <div class="row padding-top padding-bottom">
+        <div class="col-md-6 padding-none">
+            <a href="{{ url_for('addCategory') }}">
+                <button class="btn btn-default" id="add-category">
+					<span class="glyphicon glyphicon-plus-sign"
+                          aria-hidden="true"></span>Add Category
+                </button>
+            </a>
+        </div>
+        <div class="col-md-6 padding-none">
+            <a href="{{ url_for('addItem') }}">
+                <button class="btn btn-default" id="add-item">
+					<span class="glyphicon glyphicon-list"
+                          aria-hidden="true"></span>Add item
+                </button>
+            </a>
+        </div>
+    </div>
+    <div class="row padding-top padding-bottom">
+        <div class="col-md-6 padding-none">
+            {% for category in categories %}
+                <a href="{{ url_for('showSelectedCategory', category_id = category.id) }}">
+                    <div class="row">
+                        <div class="col-md-6 category-list">
+                            <h4>{{ category.name }}</h4>
+                            <a href="{{ url_for('editCategory',category_id = category.id
+                                    ) }}">
+                                <button class="btn btn-default"
+                                        id="edit-category">
+					<span class="glyphicon glyphicon-edit"
+                          aria-hidden="true"></span>Edit category
+                                </button>
+                            </a>
+                            <a href="{{ url_for('deleteCategory',category_id = category
+                            .id) }}">
+                                <button class="btn btn-default"
+                                        id="delete-category">
+					<span class="glyphicon glyphicon-trash"
+                          aria-hidden="true"></span>Delete category
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="col-md-6 padding-none">
+            {% for item in items %}
+                <a href="{{ url_for('showItem', item_id = item.id) }}">
+                    <div class="row">
+                        <div class="col-md-6 item-list">
+                            <h4>{{ item.name }}({{ getCategoryName(item.category_id) }})
+                            </h4>
+                            <a href="{{ url_for('editItem',item_id = item.id,
+                             category_id = item.category_id
+                                    ) }}">
+                                <button class="btn btn-default" id="edit-item">
+					<span class="glyphicon glyphicon-edit"
+                          aria-hidden="true"></span>Edit item
+                                </button>
+                            </a>
+                            <a href="{{ url_for('deleteItem',item_id = item
+                            .id, category_id = item.category_id) }}">
+                                <button class="btn btn-default"
+                                        id="delete-item">
+					<span class="glyphicon glyphicon-trash"
+                          aria-hidden="true"></span>Delete item
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
