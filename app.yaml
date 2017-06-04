@@ -1,0 +1,3 @@
+entrypoint: python db_setup.py
+env: flex
+runtime: python
