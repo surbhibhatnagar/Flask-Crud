@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, \
 from sqlalchemy.sql import func
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import backref
 
 Base = declarative_base()
 class User(Base):
@@ -45,7 +46,8 @@ class Item(Base):
     name = Column(String(100), nullable=False)
     description = Column(String(500), nullable=False)
     category_id = Column(Integer, ForeignKey('category.id'))
-    category = relationship(Category)
+    category = relationship(Category, backref=backref('item', cascade='all,'
+                                                                      'delete'))
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
     @property
@@ -58,8 +60,6 @@ class Item(Base):
             'category_id': self.category_id,
             'user_id' : self.user_id,
         }
-
-
 
 
 engine = create_engine('sqlite:///itemcatalog.db')
