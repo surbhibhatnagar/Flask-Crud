@@ -7,7 +7,14 @@
 	</div>
 
 	<div class="col-md-6 text-right">
-					<p>Login Link will go Here </p>
-		
+        {% if not login_session.logged_in %}
+        <a href="{{url_for('showLogin')}}"><span class="glyphicon
+        glyphicon-user"
+                  aria-hidden="true"></span>Login</a>
+        {% else %}
+        <p>Welcome, {{ login_session.username }} </p>
+        <a href="{{ url_for('gdisconnect') }}">Log out</a>
+        {% endif %}
+
 	</div>
 </div>
